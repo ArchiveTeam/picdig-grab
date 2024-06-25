@@ -89,7 +89,8 @@ find_item = function(url)
   for pattern, name in pairs({
     ["^https?://picdig%.net/api/v2/users/([a-f0-9%-]+)$"]="user",
     ["^https?://picdig%.net/api/users/([^/]+)/columns/([a-f0-9%-]+)$"]="column",
-    ["^https?://picdig%.net/api/users/([^/]+)/projects/([a-f0-9%-]+)$"]="project"
+    ["^https?://picdig%.net/api/users/([^/]+)/projects/([a-f0-9%-]+)$"]="project",
+    ["^https?://(picdig%.net/images/.+)$"]="cdn"
   }) do
     if name == "column" or name == "project" then
       value2, value = string.match(url, pattern)
