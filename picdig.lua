@@ -410,7 +410,7 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
           if discovered_item_type == "project"
             or discovered_item_type == "column"
             or discovered_item_type == "notice" then
-            discover_item(discovered_items, discovered_item_type .. ":" .. item_user_name .. ":" .. v)
+            discover_item(discovered_items, discovered_item_type .. ":" .. json["user"]["user_name"] .. ":" .. v)
           else
             discover_item(discovered_items, discovered_item_type .. ":" .. v)
           end
@@ -570,6 +570,9 @@ wget.callbacks.httploop_result = function(url, err, http_stat)
     io.stdout:flush()
     tries = tries + 1
     local maxtries = 8
+    if status_code == 500 then
+      maxtries = 2
+    end
     if tries > maxtries then
       io.stdout:write(" Skipping.\n")
       io.stdout:flush()
